@@ -1,0 +1,10 @@
+{{ template "header" . }}
+<h1>ログイン</h1>
+
+<form action="/login" method="POST">
+    <p>ユーザ名 : <input type="text" name="name" value=""></p>
+    <p>パスワード : <input type="password" name="password" value=""></p>
+    <p><input type="submit" value="ログイン"></p>
+</form>
+
+{{ template "footer" }}

@@ -1,0 +1,12 @@
+{{ template "header" . }}
+<h1>タスク閲覧</h1>
+
+<p>ID:{{ .ID }}</p>
+<p>{{ .Title }}</p>
+
+<br />
+<form action="/list" method="GET">
+    <p><input type="submit" value="戻る"></p>
+</form>
+
+{{ template "footer" }}

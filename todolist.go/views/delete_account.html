@@ -1,0 +1,21 @@
+{{ template "header" . }}
+<h1>アカウント消去</h1>
+
+<h2>注意</h2>
+
+<p>アカウントを削除すると元に戻せません！</p>
+<p>削除したくない方は「戻る (削除しない)」ボタンを押してください。</p>
+
+<form action="/" method="GET">
+    <p><input type="submit" value="戻る (削除しない)"></p>
+</form>
+
+<br />
+
+<p>削除する方は「はい (削除する)」を押してください。</p>
+
+<form action="/delete_account" method="POST">
+    <p><input type="submit" value="はい (削除する)"></p>
+</form>
+
+{{ template "footer" }}

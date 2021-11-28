@@ -1,0 +1,17 @@
+{{ template "header" . }}
+<h1>タスクの編集</h1>
+
+<form action="/list/edit/{{ .ID }}" method="POST">
+    <p>ID : {{ .ID }}</p>
+    <p>タイトル : <input type="text" name="title" value="{{ .Title }}"></p>
+    <p>登録日 : <span id="date{{ .ID }}"></span>
+        <script type="text/javascript">
+            elm = document.getElementById("date{{ .ID }}");
+            elm.innerHTML = format_date({{ .CreatedAt }});
+        </script>
+    </p>
+    <p>状態 : <input type="checkbox" name="is_done" value="done" {{ if .IsDone }}checked{{ end }}>完了</p>
+    <input type="submit" value="完了">
+</form>
+
+{{ template "footer" }}

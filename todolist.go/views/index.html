@@ -1,0 +1,21 @@
+{{ template "header" . }}
+<h1>ToDoリスト</h1>
+
+{{ if .UserID }}
+<h2>ようこそ、{{ .Name }}さん！</h2>
+{{ end }}
+
+<ul>
+    {{ if .UserID }}
+    <p><a href="/list">登録済みタスク一覧</a></p>
+    <p><a href="/change_name">ユーザ名変更</a></p>
+    <p><a href="/change_pass">パスワード変更</a></p>
+    <p><a href="/delete_account">アカウント消去</a></p>
+    <p><a href="/logout">ログアウト</a></p>
+    {{ end }}
+    {{ if not .UserID }}
+    <p><a href="/login">ログイン</a></p>
+    <p><a href="/register">アカウント登録</a></p>
+    {{ end }}
+</ul>
+{{ template "footer" }}

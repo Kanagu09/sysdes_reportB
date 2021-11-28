@@ -1,0 +1,9 @@
+{{ template "header" . }}
+<h1>ユーザ名変更</h1>
+
+<form action="/change_name" method="POST">
+    <p>ユーザ名 : <input type="text" name="name" value="">
+    <input type="submit" value="変更"></p>
+</form>
+
+{{ template "footer" }}

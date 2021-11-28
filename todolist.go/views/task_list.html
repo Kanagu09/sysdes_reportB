@@ -1,0 +1,88 @@
+{{ template "header" . }}
+<h1>進捗どうですか？？？</h1>
+
+<h2>タスク追加</h2>
+
+<form action="/list/add" method="POST">
+    <p>
+        <input type="text" name="title" value="">
+        <input type="submit" value="追加">
+    </p>
+</form>
+
+<h2>フィルタ</h2>
+
+<form action="/list" method="POST">
+    <p>
+        完了状態 : <select name="filter" id="select">
+            <option value="all">全てのタスク</option>
+            <option value="undone">未完了のタスク</option>
+            <option value="done">完了済のタスク</option>
+        </select>
+        <script type="text/javascript">
+            select_filter({{ .Option.Filter }});
+        </script>
+    </p>
+    <p>
+        検索 : <input type="text" name="search" value="{{ .Option.Search }}">
+    </p>
+    <input type="submit" value="適用">
+</form>
+
+<h2>タスク一覧</h2>
+
+{{ if not .Tasks }}
+<p>登録データがありません．</p>
+{{ else }}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>タイトル</th>
+        <th>登録日</th>
+        <th>状態</th>
+        <th>完了</th>
+        <th>未完了</th>
+        <th>編集</th>
+        <th>消去</th>
+    </tr>
+    {{ range $task := .Tasks }}
+    <tr>
+        <td><a href="/task/{{ $task.ID }}">{{ $task.ID }}</a></td>
+        <td>{{ $task.Title }}</td>
+        <td>
+            <span id="date{{ $task.ID }}"></span>
+            <script type="text/javascript">
+                elm = document.getElementById("date{{ $task.ID }}");
+                elm.innerHTML = format_date({{ $task.CreatedAt }});
+            </script>
+        </td>
+        <td>{{ if $task.IsDone }}済🎉{{ end }}</td>
+        <td>
+            {{ if not $task.IsDone }}
+            <form action="/list/done/{{ $task.ID }}" method="POST">
+                <input type="submit" value="完了">
+            </form>
+            {{ end }}
+        </td>
+        <td>
+            {{ if $task.IsDone }}
+            <form action="/list/undone/{{ $task.ID }}" method="POST">
+                <input type="submit" value="未完了">
+            </form>
+            {{ end }}
+        </td>
+        <td>
+            <form action="/edit/{{ $task.ID }}" method="GET">
+                <input type="submit" value="編集">
+            </form>
+        </td>
+        <td>
+            <form action="/list/delete/{{ $task.ID }}" method="POST">
+                <input type="submit" value="消去">
+            </form>
+        </td>
+    </tr>
+    {{ end }}
+</table>
+{{ end }}
+{{ template "footer" }}
